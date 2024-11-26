@@ -101,12 +101,27 @@ jobs:
         if-no-files-found: error
         retention-days: 90
 
+    - name: Setup GitHub CLI
+      run: |
+        gh auth setup-git
+        gh auth status
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
     - name: Publish to GitHub Packages
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "{\"name\":\"video-time-viewer\",\"version\":\"${{ env.VERSION }}\",\"description\":\"视频时长查看器\",\"repository\":\"${{ github.repository }}\",\"build_date\":\"${{ env.BUILD_DATE }}\"}" > package.json
-        gh api --method POST /user/packages/generic/video-time-viewer/${{ env.VERSION }}/video-time-viewer.zip --input "./视频时长查看器_${{ env.VERSION }}.zip"
+        # 创建包描述文件
+        echo "{\"name\":\"video-time-viewer\",\"version\":\"${{ env.VERSION }}\",\"description\":\"视频时长查看器\"}" > package.json
+        
+        # 创建包
+        gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          -H "X-GitHub-Api-Version: 2022-11-28" \
+          /user/packages/generic/video-time-viewer/${{ env.VERSION }}/video-time-viewer.zip \
+          -F "package=@./视频时长查看器_${{ env.VERSION }}.zip"
 
     - name: Upload Build Logs
       if: always()
