@@ -50,7 +50,8 @@ jobs:
     - name: Build with PyInstaller
       shell: cmd
       run: |
-        pyinstaller --noconfirm --windowed --name "VideoTimeViewer_${{ env.VERSION }}" --clean --icon=vticon.ico --add-binary "opencv_videoio_ffmpeg*.dll;." --hidden-import cv2 --hidden-import numpy --collect-all cv2 --onefile video_duration.py
+        for /f "tokens=*" %%i in ('python -c "import os, cv2; print(os.path.dirname(cv2.__file__))"') do set OPENCV_PATH=%%i
+        pyinstaller --noconfirm --windowed --name "VideoTimeViewer_${{ env.VERSION }}" --clean --icon=vticon.ico --hidden-import cv2 --hidden-import numpy --collect-all cv2 --add-data "%OPENCV_PATH%\opencv_videoio_ffmpeg*.dll;." --onefile video_duration.py
       
     - name: Verify Build
       shell: cmd
