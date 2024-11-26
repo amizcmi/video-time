@@ -1,3 +1,4 @@
+代码均由Cursor书写  
 # 视频时长查看器 v0.3
 
 一个简单的视频时长统计工具，支持批量处理和文件夹递归搜索。
@@ -41,6 +42,5 @@
 - OpenCV
 - Tkinter
 
-## 构建方法
-
-1. 克隆仓库： 
+运行界面  
+![图片](https://github.com/user-attachments/assets/1dc4c6de-18ae-4a71-9bf7-9e704f40d05e)
