@@ -1,7 +1,7 @@
 @echo off
 chcp 65001 >nul
 
-echo 开始打包视频时长查看器...
+echo 开始打包视频时长查看器 v0.3...
 
 :: 检查 Python 环境
 where python >nul 2>nul
@@ -26,7 +26,7 @@ if exist *.spec del *.spec
 echo 开始打包程序...
 pyinstaller --noconfirm ^
     --windowed ^
-    --name "视频时长查看器" ^
+    --name "VideoTimeViewer_0.3" ^
     --clean ^
     --icon=vticon.ico ^
     video_duration.py
@@ -36,10 +36,15 @@ timeout /t 2 >nul
 
 :: 检查打包结果
 if exist "dist" (
-    if exist "dist\视频时长查看器" (
-        if exist "dist\视频时长查看器\视频时长查看器.exe" (
+    if exist "dist\VideoTimeViewer_0.3" (
+        if exist "dist\VideoTimeViewer_0.3\VideoTimeViewer_0.3.exe" (
             echo 打包成功！
-            echo 可执行文件位置：dist\视频时长查看器\视频时长查看器.exe
+            echo 可执行文件位置：dist\VideoTimeViewer_0.3\VideoTimeViewer_0.3.exe
+            
+            :: 重命名为中文名称
+            cd dist
+            ren "VideoTimeViewer_0.3" "视频时长查看器_0.3"
+            echo 已重命名为中文名称
         ) else (
             echo 打包失败：未找到生成的exe文件
             pause

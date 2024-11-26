@@ -4,6 +4,9 @@ import os
 from tkinter import messagebox, filedialog
 import cv2
 
+# 在文件开头添加
+VERSION = "0.3"
+
 class ModernButton(ttk.Label):
     """现代风格按钮"""
     def __init__(self, master, **kwargs):
@@ -22,7 +25,7 @@ class ModernButton(ttk.Label):
 class VideoDurationApp:
     def __init__(self, root):
         self.root = root
-        self.root.title("视频时长查看器")
+        self.root.title(f"视频时长查看器 v{VERSION}")
         
         # 设置窗口大小和位置
         window_width = 600
